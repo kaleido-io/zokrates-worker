@@ -79,3 +79,5 @@ output/*
 #circuits, except for test purposes
 circuits/*
 !circuits/test/
+
+zokrates-zexe.js

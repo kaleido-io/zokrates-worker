@@ -12,7 +12,8 @@ const main = async () => {
       queues();
     }
 
-    app.listen(80);
+    console.log('listening on port 3002');
+    app.listen(3002);
   } catch (err) {
     logger.error(err);
     process.exit(1);

@@ -1,13 +1,15 @@
 FROM ubuntu:20.04
 ARG GPR_TOKEN
 
-FROM zokrates/zokrates:0.8.0 as builder
+FROM zokrates/zokrates:0.7.12 as builder
 
 FROM node:16.0.0 as node-build
 ARG GPR_TOKEN
 WORKDIR /app
 COPY ./package.json ./package-lock.json ./.npmrc ./
-RUN npm ci
+COPY ./zokrates-zexe.js/ ./zokrates-zexe.js
+RUN cd /app/zokrates-zexe.js && npm ci
+RUN cd /app && npm ci
 RUN rm -f .npmrc
 
 FROM node:16.0.0
@@ -55,5 +57,5 @@ RUN cd ..
 ENV ZOKRATES_HOME /app
 ENV ZOKRATES_STDLIB /app/stdlib
 
-EXPOSE 80
+EXPOSE 3002
 CMD npm start
